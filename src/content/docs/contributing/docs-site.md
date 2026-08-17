@@ -2,7 +2,7 @@
 title: Working on this site
 description: How to run the docs site locally without installing Node.
 sidebar:
-  order: 2
+  order: 5
 ---
 
 This site is built with [Astro Starlight](https://starlight.astro.build/).
