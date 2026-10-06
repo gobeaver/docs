@@ -1,0 +1,94 @@
+---
+// Contributors across all public gobeaver repos. Rendered from GitHub at build
+// time, then refreshed in the browser on load (cached for an hour) so new
+// contributors appear without a redeploy. Set GITHUB_TOKEN for the build to lift
+// the unauthenticated rate limit (60 requests/hour).
+import { getContributors, label } from '../lib/contributors';
+
+const contributors = await getContributors();
+---
+
+<div class="contributors not-content">
+	<ul>
+		{
+			contributors.map((c) => (
+				<li>
+					<a href={c.url} title={label(c)}>
+						<img src={`${c.avatar}&s=96`} alt={c.login} width="48" height="48" loading="lazy" />
+					</a>
+				</li>
+			))
+		}
+	</ul>
+	<p hidden={contributors.length > 0}>
+		See everyone who has contributed on{' '}
+		<a href="https://github.com/orgs/gobeaver/people">GitHub</a>.
+	</p>
+</div>
+
+<script>
+	import { fetchContributors, label, type Contributor } from '../lib/contributors';
+
+	const KEY = 'gobeaver-contributors';
+	const TTL = 60 * 60 * 1000;
+
+	async function load(): Promise<Contributor[]> {
+		const hit = JSON.parse(localStorage.getItem(KEY) ?? 'null');
+		if (hit && Date.now() - hit.at < TTL) return hit.data;
+		const data = await fetchContributors();
+		localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data }));
+		return data;
+	}
+
+	function item(c: Contributor): HTMLLIElement {
+		const img = Object.assign(document.createElement('img'), {
+			src: `${c.avatar}&s=96`,
+			alt: c.login,
+			width: 48,
+			height: 48,
+			loading: 'lazy',
+		});
+		const a = Object.assign(document.createElement('a'), {
+			href: c.url,
+			title: label(c),
+		});
+		const li = document.createElement('li');
+		a.append(img);
+		li.append(a);
+		return li;
+	}
+
+	// On failure (offline, rate-limited) the build-time list stays as is.
+	load()
+		.then((list) => {
+			if (list.length === 0) return;
+			for (const root of document.querySelectorAll('.contributors')) {
+				root.querySelector('ul')?.replaceChildren(...list.map(item));
+				root.querySelector('p')?.setAttribute('hidden', '');
+			}
+		})
+		.catch(() => {});
+</script>
+
+<style>
+	/* :global — the refresh script creates these elements without Astro's scope class. */
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0;
+		list-style: none;
+	}
+	ul :global(a) {
+		display: block;
+		border-radius: 50%;
+	}
+	ul :global(a:focus-visible) {
+		outline: 2px solid var(--sl-color-text-accent);
+		outline-offset: 2px;
+	}
+	ul :global(img) {
+		display: block;
+		border-radius: 50%;
+	}
+</style>
