@@ -10,6 +10,7 @@ export default defineConfig({
 			title: 'GoBeaver',
 			logo: { src: './src/assets/logo.svg' },
 			favicon: '/favicon.svg',
+			customCss: ['./src/styles/custom.css'],
 			head: [
 				{
 					tag: 'link',

@@ -1,0 +1,16 @@
+/* GoBeaver brand palette, taken from the logo (logo/GO-BEAVER-SVG.svg).
+ * Every text/background pair Starlight uses meets WCAG AA (≥ 4.5:1). */
+
+/* Dark mode */
+:root {
+	--sl-color-accent-low: #171c30; /* logo navy */
+	--sl-color-accent: #408dc0; /* logo blue */
+	--sl-color-accent-high: #76cbe4; /* logo cyan — 9.7:1 on bg, 8.2:1 on nav */
+}
+
+/* Light mode */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #d5eef7; /* cyan tint */
+	--sl-color-accent: #2f6d97; /* logo blue darkened — 5.6:1 on white, 4.8:1 on gray-6 */
+	--sl-color-accent-high: #171c30; /* logo navy */
+}
