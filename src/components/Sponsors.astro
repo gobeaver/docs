@@ -1,0 +1,51 @@
+---
+import ArzsLogo from '../assets/sponsors/arzs.svg';
+import AmedazLogo from '../assets/sponsors/amedaz.svg';
+
+const sponsors = [
+	{ name: 'ARZS', href: 'https://arzs.net', Logo: ArzsLogo, wordmark: false },
+	{ name: 'AMEDAZ', href: 'https://amedaz.com', Logo: AmedazLogo, wordmark: true },
+];
+---
+
+<ul class="sponsors not-content">
+	{
+		sponsors.map(({ name, href, Logo, wordmark }) => (
+			<li>
+				<a href={href} aria-label={name}>
+					<Logo aria-hidden="true" />
+					{wordmark && <span aria-hidden="true">{name}</span>}
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.sponsors {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		padding: 0;
+		list-style: none;
+	}
+	a {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1rem 1.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-2xl);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	svg {
+		height: 2.5rem;
+		width: auto;
+	}
+	a:hover,
+	a:focus-visible {
+		border-color: var(--sl-color-text-accent);
+	}
+</style>
