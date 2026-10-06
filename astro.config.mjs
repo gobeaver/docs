@@ -8,6 +8,14 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'GoBeaver',
+			logo: { src: './src/assets/logo.svg' },
+			favicon: '/favicon.svg',
+			head: [
+				{
+					tag: 'link',
+					attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+				},
+			],
 			description:
 				'Composable Go building blocks for secure, scalable services — configkit, filekit, beaverkit, and the GoBeaver CLI.',
 			social: [
