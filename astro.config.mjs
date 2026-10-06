@@ -11,6 +11,13 @@ export default defineConfig({
 			logo: { src: './src/assets/logo.svg' },
 			favicon: '/favicon.svg',
 			customCss: ['./src/styles/custom.css'],
+			components: {
+				Footer: './src/components/Footer.astro',
+			},
+			editLink: {
+				baseUrl: 'https://github.com/gobeaver/docs/edit/main/',
+			},
+			lastUpdated: true,
 			head: [
 				{
 					tag: 'link',

@@ -1,0 +1,39 @@
+---
+// Extends Starlight's footer (edit link, last updated, pagination) with a
+// site-wide project footer.
+import Default from '@astrojs/starlight/components/Footer.astro';
+
+const year = new Date().getFullYear();
+---
+
+<Default><slot /></Default>
+
+<div class="site-footer">
+	<nav aria-label="Project">
+		<a href="https://github.com/gobeaver">GitHub</a>
+		<a href="/contributing/">Contributing</a>
+		<span>Sponsored by <a href="https://arzs.net">ARZS</a> and <a href="https://amedaz.com">AMEDAZ</a></span>
+	</nav>
+	<p>© {year} GoBeaver · Open source — each package's license is in its repository.</p>
+</div>
+
+<style>
+	.site-footer {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--sl-color-hairline);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+	}
+	p {
+		margin-top: 0.75rem;
+	}
+	a {
+		color: var(--sl-color-text-accent);
+	}
+</style>

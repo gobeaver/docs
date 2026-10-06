@@ -45,6 +45,34 @@ and the GoBeaver CLI to scaffold a complete modular monolith.
 	</Card>
 </CardGrid>
 
+## Quick look
+
+```sh
+go get github.com/gobeaver/configkit github.com/gobeaver/filekit
+```
+
+Load config from the environment, then write a file through the filesystem
+abstraction:
+
+```go
+type Config struct {
+	DataDir string `env:"DATA_DIR" envDefault:"./data"`
+}
+
+func main() {
+	var cfg Config
+	configkit.MustLoad(&cfg)
+
+	fs := localfs.New(cfg.DataDir)
+	if _, err := fs.Write(context.Background(), "hello.txt", []byte("hi")); err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+Swap `localfs` for S3, GCS, or any other driver without touching the rest.
+[Full quickstart →](/intro/quickstart/)
+
 ## Sponsors
 
 GoBeaver is supported by:
